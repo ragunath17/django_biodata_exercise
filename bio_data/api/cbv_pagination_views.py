@@ -4,23 +4,28 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from bio_data.models import BioData
-from bio_data.api.serializers import BiodataSerializer
+from bio_data.api.serializers import BiodataSerializer 
+from bio_data.api.paginations import BiodataPaginationCBV
 
-class BiodataListCreateCBV(APIView):
+class BiodataListCreatePaginationApiview(APIView):
     def get(self, request):
         biodata = BioData.objects.all()
-        serializer = BiodataSerializer(biodata, many=True)
-        return Response(serializer.data)
+        
+        paginator = BiodataPaginationCBV()
+        page = paginator.paginate_queryset(biodata, request)
+        
+        serializer = BiodataSerializer(page, many=True)
+        
+        return paginator.get_paginated_response(serializer.data)
     
     def post(self, request):
-        serializer = BiodataSerializer(data=request.data)
+        serializer = BiodataSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-class BiodataDetailCBV(APIView):
+
+class BiodataDetailPaginationApiview(APIView):
     def get_object(self, pk):
         return get_object_or_404(BioData, pk=pk)
     

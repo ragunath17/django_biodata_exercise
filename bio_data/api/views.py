@@ -6,7 +6,7 @@ from rest_framework import status
 
 from bio_data.models import BioData
 from bio_data.api.serializers import BiodataSerializer
-from bio_data.api.paginations import BiodataPagination
+from bio_data.api.paginations import BiodataPaginationCBV
 from bio_data.api.filters import BiodataFilter
 
 @api_view(['GET', 'POST'])
@@ -18,7 +18,7 @@ def biodata_list_create(request):
         filterset = BiodataFilter(request.GET, queryset=biodata)
         biodata = filterset.qs
         
-        paginator = BiodataPagination()
+        paginator = BiodataPaginationCBV()
         
         result_page = paginator.paginate_queryset(biodata, request)
         serializer = BiodataSerializer(result_page, many=True)
