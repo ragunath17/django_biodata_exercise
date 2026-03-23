@@ -1,55 +1,114 @@
-# BioData REST API (Django REST Framework)
+# BioData Management System (Django + DRF)
 
 ## Overview
-This project is a BioData management API built using Django REST Framework.
+This project is a BioData Management System built using Django and Django REST Framework.
 
-It demonstrates:
-- Function Based Views
-- Class Based Views (APIView)
-- JWT Authentication
-- Pagination
-- Filtering (django-filter)
-- PUT and PATCH update methods
-- Unique field validation
+It supports both REST APIs and server-side rendering using Django Templates to manage and display biodata records.
 
 ---
 
-## Installation
+## Features
 
-1. Clone the repository
+### Backend (Django REST Framework)
+- Function-Based Views (FBV)
+- Class-Based Views (APIView)
+- Generic Views
+- CRUD operations (Create, Read, Update, Delete)
+- Filtering (first_name, last_name, job_title, email, city)
+- Serializer validation
+- PUT and PATCH support
 
-2. Create virtual environment
-   python -m venv venv
+### Frontend (Django Templates)
+- List view to display all records
+- Detail view for individual biodata
+- Form handling for Create and Update
+- Dynamic data rendering
 
-3. Activate virtual environment
+---
 
-4. Install dependencies
-   pip install -r requirements.txt
+## Tech Stack
+- Python
+- Django
+- Django REST Framework
+- MySQL
+- HTML (Django Templates)
 
-5. Run migrations
-   python manage.py migrate
+---
 
-6. Run server
-   python manage.py runserver
+## Project Structure
+bio_data/
+│
+├── api/
+│ ├── serializers.py
+│ ├── views.py
+│ ├── cbv_views.py
+│ ├── generic_views.py
+│ ├── paginations.py
+│ ├── filters.py
+│ └── urls.py
+│
+├── templates/
+│ ├── biodata_detail.html
+│ ├── biodata_form.html
+│ └── data.html
+│
+├── models.py
+├── views.py
+├── urls.py
+└── migrations/
+
+---
+
+## How to Run
+
+1. Create virtual environment  
+   python -m venv venv  
+
+2. Activate environment  
+   venv\Scripts\activate  
+
+3. Install dependencies  
+   pip install -r requirements.txt  
+
+4. Apply migrations  
+   python manage.py migrate  
+
+5. Run server  
+   python manage.py runserver  
 
 ---
 
 ## API Endpoints
 
-Function Based Views:
+### Function-Based Views
 - /biodata/list/
 - /biodata/<id>/
 
-Class Based Views:
+### Class-Based Views
 - /biodata/cbv/list/
 - /biodata/cbv/<id>/
 
 ---
 
-## Features Implemented
+## Template Pages
 
-- CRUD operations
-- Pagination
-- Filtering by first_name, last_name, job_title, email, city
-- Serializer validation
-- Partial update (PATCH)
+- /biodata/ → List Page  
+- /biodata/<id>/ → Detail Page  
+- Form page for Create and Update  
+
+---
+
+## Key Learnings
+- Working with FBV, APIView, and Generic Views
+- Building CRUD operations using both API and Templates
+- Handling forms and template rendering
+- Implementing filtering and validations
+
+---
+
+## Future Improvements
+- Add authentication (JWT / login system)
+- Improve UI with CSS or Bootstrap
+- Enable pagination in UI
+- Deploy the project
+

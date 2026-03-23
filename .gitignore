@@ -1,18 +1,24 @@
 # Python
 __pycache__/
 *.py[cod]
-*$py.class
+*.pyo
+*.pyd
+*.pyc
 
-# Virtual Environment
+# Virtual Environments
 venv/
-biodatavenv/
 env/
+biodatavenv/
 
 # Django
 db.sqlite3
 *.sqlite3
 
-# Environment variables
+# Static & Media (if used later)
+staticfiles/
+media/
+
+# Environment Variables
 .env
 
 # VS Code
@@ -21,13 +27,9 @@ db.sqlite3
 # PyCharm
 .idea/
 
-# OS files
+# OS Files
 .DS_Store
 Thumbs.db
 
 # Logs
 *.log
-
-# Migrations (optional, if not needed)
-# */migrations/
-# !*/migrations/__init__.py

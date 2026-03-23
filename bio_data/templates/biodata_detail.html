@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>{{ person.first_name }} {{ person.last_name }}</h2>
+
+<p>Email: {{ person.email }}</p>
+<p>Phone: {{ person.phone_number }}</p>
+<p>City: {{ person.city }}</p>
+<p>Occupation: {{ person.occupation }}</p>
+<p>DOB: {{ person.date_of_birth }}</p>
+<p>Created: {{person.created_at|date:"Y-m-d"}}</p>
+<p>Nationality: {{ person.nationality }}</p>
+
+<button type="button"><a href="/biodata/template_list/">back</a></button>
+
+</body>
+</html>

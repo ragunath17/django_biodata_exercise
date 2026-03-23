@@ -1,6 +1,55 @@
 from bio_data.models import BioData
 from rest_framework import serializers
 
+class BiodataClassSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= BioData
+        fields= '__all__'
+        
+    def validate_age(self, value):
+        if value < 18:
+            raise serializers.ValidationError('Age must be 18 or above')
+        return value
+
+    def validate_email(self, value):
+        queryset = BioData.objects.filter(email=value)
+        if self.instance:
+            queryset = queryset.exclude(pk=self.instance.pk)
+        
+        if queryset.exists():
+            raise serializers.ValidationError("This email already exists.")
+        return value
+    
+    def validate_phone_number(self, value):
+        if not value.isdigit():
+            raise serializers.ValidationError("Phone number must contain digits only.")
+
+        if len(value) != 10:
+            raise serializers.ValidationError("Phone number must be exactly 10 digits.")
+    
+        queryset = BioData.objects.filter(phone_number=value)
+        if self.instance:
+            queryset = queryset.exclude(pk=self.instance.pk)
+        
+        if queryset.exists():
+            raise serializers.ValidationError("This Phone number already exists.")
+        return value
+    
+    def validate(self, data):
+        first_name = data.get('first_name', getattr(self.instance, 'first_name', None))
+        last_name = data.get('last_name', getattr(self.instance, 'last_name', None))
+        
+        if first_name and last_name and first_name.lower() == last_name.lower():
+            raise serializers.ValidationError({
+                'non_field_errors': ['First name and last name cannot be the same']
+            })
+        
+        return data
+    
+    
+
+
+
 class BiodataSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     first_name = serializers.CharField(max_length=50)
@@ -54,12 +103,18 @@ class BiodataSerializer(serializers.Serializer):
         instance.save()
         return instance
     
-    def validate(self, data):
-        if data['first_name'].lower() == data['last_name'].lower():
-            raise serializers.ValidationError('First name and last name cannot be the same')
-
-        if data['age'] < 18:
+    def validate_age(self, value):
+        if value < 18:
             raise serializers.ValidationError('Age must be 18 or above')
+        return value
+    
+    def validate(self, data):
+        first_name = data.get('first_name', getattr(self.instance, 'first_name', None))
+        last_name = data.get('last_name', getattr(self.instance, 'last_name', None))
+        
+        if first_name and last_name and first_name.lower() == last_name.lower():
+            raise serializers.ValidationError({
+                'non-field-errors': ['First name and last name cannot be the same']
+            })
         
         return data
-    

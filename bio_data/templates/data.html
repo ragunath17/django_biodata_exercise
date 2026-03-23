@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>BioData List</h1>
+
+<ul>
+  {% for person in all_data %}
+    <li>
+      <a href="/biodata/{{ person.id }}/">
+        {{ person.first_name }} {{ person.last_name }}
+      </a>
+    </li>
+  {% endfor %}
+  
+</ul>
+<p>Total Count: {{ count }}</p>
+<button>
+  <a href="/biodata/create/">Add Data</a>
+</button>
+
+</body>
+</html>

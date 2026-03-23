@@ -13,7 +13,7 @@ class BiodataListCreateMixinView(mixins.ListModelMixin, mixins.CreateModelMixin,
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
     
-    
+
 class BiodataRetriveUpdateDestroyMixinView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, 
                                       mixins.DestroyModelMixin, GenericAPIView):
     queryset = BioData.objects.all()
